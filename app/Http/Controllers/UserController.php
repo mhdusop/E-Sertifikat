@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\Backend\User\Create;
+use App\Http\Requests\Backend\User\Update;
 use Illuminate\Support\Facades\Hash;
-use Webpatser\Uuid\Uuid;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+
 class UserController extends Controller
 {
     /**
@@ -35,8 +38,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
+        $getLastUniqueCode = User::orderBy('created_at', 'desc')->first();
         User::create([
             'name' => $request->nama,
             'email' => $request->email,
@@ -44,10 +48,11 @@ class UserController extends Controller
             'sebagai'  => $request->sebagai,
             'alamat' => $request->alamat,
             'telpon' => $request->telpon,
-            'kode_unik' =>Uuid::generate()->$request->kode_unik
+            'kode_unik' => (int) $getLastUniqueCode->kode_unik + 1
+            // $request = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'Comp-'])
         ]);
 
-        return  redirect (route('murid.index'));
+        return  redirect()->back();
     }
 
     /**
@@ -69,7 +74,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);
+        return view('users.edit', compact('users'));
     }
 
     /**
@@ -79,9 +85,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Update $request, $id)
     {
-        // 
+        $users = User::find($id);
+        $users -> update ([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => is_null($request->password)? $users->password : Hash::make($request->password),
+            'sebagai'  => $request->sebagai,
+            'alamat' => $request->alamat,
+            'telpon' => $request->telpon
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -90,8 +105,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $users)
     {
-        //
+        $users->delete();
+
+        return redirect()->route('murid.index')
+            ->with('success', 'Project deleted successfully');
     }
 }

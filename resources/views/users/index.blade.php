@@ -13,11 +13,10 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>Code Unik</th>
                         <th>Sebagai</th>
                         <th>No Telp</th>
                         <th>Alamat</th>
@@ -33,6 +32,23 @@
                         <td>{{$users->sebagai}}</td>
                         <td>{{$users->telpon}}</td>
                         <td>{!! $users->alamat !!}</td>
+                        <!-- <td>{{$users->kode_unik}}</td> -->
+                        <td>
+                            <form action="{{ route('murid.destroy', $users->id) }}" method="POST">       
+                                <a href="#" class="btn btn-info btn-sm">
+                                    <i class="fa fa-info"></i>
+                                </a>
+                                
+                                <a href="{{ route('murid.edit', $users->id) }}" class="btn btn-success btn-sm">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
 
                     @endforeach
