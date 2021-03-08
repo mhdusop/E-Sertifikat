@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\Backend\User\Create;
+use App\Http\Requests\Backend\User\Update;
 use Illuminate\Support\Facades\Hash;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -37,23 +38,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Create $request)
     {
-        $this->validate($request, array(
+        $getLastUniqueCode = User::orderBy('created_at', 'desc')->first();
+        User::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request -> password),
+            'sebagai'  => $request->sebagai,
+            'alamat' => $request->alamat,
+            'telpon' => $request->telpon,
+            'kode_unik' => (int) $getLastUniqueCode->kode_unik + 1
+            // $request = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'Comp-'])
+        ]);
 
-            User::create([
-                'name' => $request->nama,
-                'email' => $request->email,
-                'password' => Hash::make($request -> password),
-                'sebagai'  => $request->sebagai,
-                'alamat' => $request->alamat,
-                'telpon' => $request->telpon,
-                'kode_unik' => $request->kode_unik,
-                // $request = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'Comp-'])
-            ])
-        ));
-
-        return  redirect (route('murid.index'));
+        return  redirect()->back();
     }
 
     /**
@@ -86,12 +85,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Update $request, $id)
     {
         $users = User::find($id);
-        $this->validate($request, array(
-            'email' => 'unique:users,email,'.$users->id
-        ));
         $users -> update ([
             'name' => $request->nama,
             'email' => $request->email,
@@ -100,7 +96,7 @@ class UserController extends Controller
             'alamat' => $request->alamat,
             'telpon' => $request->telpon
         ]);
-        return  redirect (route('murid.index'));
+        return redirect()->back();
     }
 
     /**

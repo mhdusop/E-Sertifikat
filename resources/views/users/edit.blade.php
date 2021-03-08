@@ -12,10 +12,10 @@
         <a href="{{route('murid.index')}}" class="btn btn-primary float-right">Kembali</a>
     </div>
     <div class="card-body">
-        <form class="user" action="{{ route('murid.index', $users->id) }}" method="POST">
+        <form class="user" action="{{ route('murid.update', ['murid' => $users->id]) }}" method="POST">
             @csrf
             {{ $errors }}
-            {{method_field('POST')}}
+            {{method_field('PATCH')}}
             <div class="form-group row">
                 <div class="col-sm-12 mb-3 mb-sm-0">
                     <label for="nama">Nama</label>
