@@ -40,8 +40,9 @@
             <div class="form-group row">
                 <div class="col-sm-12 mb-3 mb-sm-0">
                     <label for="sebagai">Sebagai</label>
-                    <input type="text" class="form-control form-control-user" name="sebagai" value="{{ $users->sebagai }}"
-                        id="sebagai" placeholder="Edit Sebagai"required="required" >
+                        <select class="form-control" id="role" required="required" name="role"> 
+                            <option value="sebagai" {{$users->sebagai}}>Peserta</option>
+                        </select>
                 </div>
             </div>
             <div class="form-group row">

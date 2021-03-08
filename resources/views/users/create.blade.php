@@ -39,11 +39,12 @@
                             </div>
                             <div class="col">
                                 <label for="sebagai">Sebagai</label>
-                                <input type="sebagai" class="form-control form-control-user" name="sebagai"
-                                    id="sebagai" placeholder="Masukan Sebagai"required="required" >
+                                <select class="form-control" id="sebagai" required="required" name="sebagai"> 
+                                    <option value="peserta">Peserta</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row pb-3 pt-3">
+                        <div class="row pb-3 pt-3"> 
                             <div class="col">
                                 <label for="telpon">No HP</label>
                                 <input type="number" class="form-control form-control-user" name="telpon"
