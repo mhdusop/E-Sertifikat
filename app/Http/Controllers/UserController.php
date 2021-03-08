@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
-use Webpatser\Uuid\Uuid;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+
 class UserController extends Controller
 {
     /**
@@ -35,17 +37,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        User::create([
-            'name' => $request->nama,
-            'email' => $request->email,
-            'password' => Hash::make($request -> password),
-            'sebagai'  => $request->sebagai,
-            'alamat' => $request->alamat,
-            'telpon' => $request->telpon,
-            'kode_unik' =>Uuid::generate()->$request->kode_unik
-        ]);
+        $this->validate($request, array(
+
+            User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request -> password),
+                'sebagai'  => $request->sebagai,
+                'alamat' => $request->alamat,
+                'telpon' => $request->telpon,
+                'kode_unik' => $request->kode_unik,
+                // $request = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'Comp-'])
+            ])
+        ));
 
         return  redirect (route('murid.index'));
     }
@@ -69,7 +75,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);
+        return view('users.edit', compact('users'));
     }
 
     /**
@@ -81,7 +88,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 
+        $users = User::find($id);
+        $this->validate($request, array(
+            'email' => 'unique:users,email,'.$users->id
+        ));
+        $users -> update ([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => is_null($request->password)? $users->password : Hash::make($request->password),
+            'sebagai'  => $request->sebagai,
+            'alamat' => $request->alamat,
+            'telpon' => $request->telpon
+        ]);
+        return  redirect (route('murid.index'));
     }
 
     /**
@@ -90,8 +109,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $users)
     {
-        //
+        $users->delete();
+
+        return redirect()->route('murid.index')
+            ->with('success', 'Project deleted successfully');
     }
 }
