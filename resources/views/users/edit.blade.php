@@ -40,8 +40,8 @@
             <div class="form-group row">
                 <div class="col-sm-12 mb-3 mb-sm-0">
                     <label for="sebagai">Sebagai</label>
-                        <select class="form-control" id="role" required="required" name="role"> 
-                            <option value="sebagai" {{$users->sebagai}}>Peserta</option>
+                        <select class="form-control" id="sebagai" required="required" name="sebagai"> 
+                            <option value="peserta" {{$users->sebagai}}>Peserta</option>
                         </select>
                 </div>
             </div>

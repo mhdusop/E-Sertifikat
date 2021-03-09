@@ -40,17 +40,6 @@
                                                 <input id="name" class="form-control form-control-user" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Masukan Nama">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-12 mb-3 mb-sm-0">
-                                                <input id="telpon" class="form-control form-control-user" type="number" name="telpon" :value="old('telpon')" required autofocus autocomplete="telpon" placeholder="Masukan Nomor Telpon">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-12 mb-3 mb-sm-0">
-                                                <textarea id="alamat" class="form-control" type="text" name="alamat" :value="old('alamat')" required autofocus autocomplete="alamat" placeholder="Masukan Alamat">
-                                                </textarea>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <input id="email" class="form-control form-control-user" type="email" name="email" :value="old('email')" required placeholder="Masukan Email">
                                         </div>

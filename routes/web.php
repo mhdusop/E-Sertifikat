@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CetakPdfController;
 use App\Models\User;
 
 /*
@@ -23,6 +24,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/murid/print', [UserController::class, 'print'])->name('murid.print');
 // user page
 Route::resource('/murid', UserController::class);
-// Route::get('/murid/{id}', [UserController::class, 'show']);
+// user print
+

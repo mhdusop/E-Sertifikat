@@ -10,6 +10,10 @@
         <i class="fas fa-user-plus"></i>
             Tambah Pengguna
         </a>
+        <a href="{{route('murid.print')}}" class="btn btn-danger btn-sm float-right mr-1">
+        <i class="fas fa-print"></i>
+            Cetak PDF
+        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -35,16 +39,15 @@
                         <!-- <td>{{$users->kode_unik}}</td> -->
                         <td>
                             <form action="{{ route('murid.destroy', $users->id) }}" method="POST">       
-                                <a href="#" class="btn btn-info btn-sm">
-                                    <i class="fa fa-info"></i>
+                            @csrf
+                            @method('DELETE')
+                                <a href="{{ route('murid.show', $users->id) }}" class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>
                                 </a>
-                                
                                 <a href="{{ route('murid.edit', $users->id) }}" class="btn btn-success btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button data-toggle="modal" onclick="return confirm('Are you sure?');"type="submit" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
