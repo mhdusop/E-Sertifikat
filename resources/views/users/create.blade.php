@@ -38,18 +38,26 @@
                                     id="password" placeholder="Masukan Password"required="required">
                             </div>
                             <div class="col">
+                                <label for="nilai">Nilai</label>
+                                <input type="number" class="form-control form-control-user" id="nilai" name="nilai"
+                                    placeholder="Masukan Nilai" required="required">
+                            </div>
+                        </div>
+                        <div class="row pb-3 pt-3"> 
+                            <div class="col">
                                 <label for="sebagai">Sebagai</label>
                                 <select class="form-control" id="sebagai" required="required" name="sebagai"> 
                                     <option value="peserta">Peserta</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row pb-3 pt-3"> 
                             <div class="col">
                                 <label for="telpon">No HP</label>
                                 <input type="number" class="form-control form-control-user" name="telpon"
-                                    id="telpon" placeholder="Masukan Nomor Hp"required="required" >
+                                    id="telpon" placeholder="Masukan Nomor Hp" required="required" >
                             </div>
+                            
+                        </div>
+                        <div class="row pb-3 pt-3">
                             <div class="col">
                             <label for="alamat">Alamat</label>
                                 <textarea name="alamat" id="alamat" class="form-control" cols="10" rows="10" placeholder="Masukan Alamat"></textarea>

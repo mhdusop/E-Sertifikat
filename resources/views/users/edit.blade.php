@@ -47,6 +47,13 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-12 mb-3 mb-sm-0">
+                    <label for="nilai">Nilai</label>
+                    <input type="number" class="form-control form-control-user" name="nilai" 
+                        id="nilai" placeholder="Edit Nilai" required="required" value="{{$users->nilai}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 mb-3 mb-sm-0">
                 <label for="password">Password</label>
                     <input type="password" class="form-control form-control-user" name="password" 
                         id="password" placeholder="Edit Password">

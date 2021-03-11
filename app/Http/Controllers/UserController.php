@@ -7,8 +7,11 @@ use App\Http\Requests\Backend\User\Create;
 use App\Http\Requests\Backend\User\Update;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use LengthException;
+use Ramsey\Uuid\Type\Decimal;
 
 class UserController extends Controller
 {
@@ -42,6 +45,7 @@ class UserController extends Controller
      */
     public function store(Create $request)
     {
+        $bilangan=12345678;
         $getLastUniqueCode = User::orderBy('created_at', 'desc')->first();
         User::create([
             'name' => $request->nama,
@@ -50,11 +54,13 @@ class UserController extends Controller
             'sebagai'  => $request->sebagai,
             'alamat' => $request->alamat,
             'telpon' => $request->telpon,
-            'kode_unik' => (int) $getLastUniqueCode->kode_unik + 1
+            'nilai' => $request->nilai,
+            // $request = IdGenerator::generate(['table' => 'users', 'length' => 10, 'prefix' => date('ym')])
+            'kode_unik' => (int) $getLastUniqueCode->kode_unik + $bilangan
             // $request = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'Comp-'])
         ]);
 
-        return  redirect()->back();
+        return redirect()->route('murid.index');
     }
 
     /**
@@ -97,7 +103,8 @@ class UserController extends Controller
             'password' => is_null($request->password)? $users->password : Hash::make($request->password),
             'sebagai'  => $request->sebagai,
             'alamat' => $request->alamat,
-            'telpon' => $request->telpon
+            'telpon' => $request->telpon,
+            'nilai' => $request->nilai
         ]);
         return redirect()->route('murid.index');
     }
@@ -118,9 +125,10 @@ class UserController extends Controller
         return redirect()->route('murid.index');
     }
 
+    // Print PDF
     public function print()
     {
-        $users = User::latest()->paginate();
+        $users = User::all();
         $html = view('users.print', compact('users'));
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();

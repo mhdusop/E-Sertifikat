@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('kode_unik')->nullable();
             $table->string('sebagai')->nullable();
+            $table->string('nilai')->nullable();
             $table->string('telpon')->nullable();
             $table->string('alamat')->nullable();
             $table->timestamp('email_verified_at')->nullable();

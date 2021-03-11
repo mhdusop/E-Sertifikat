@@ -24,8 +24,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+// user print
 Route::get('/murid/print', [UserController::class, 'print'])->name('murid.print');
+
 // user page
 Route::resource('/murid', UserController::class);
-// user print
+
 

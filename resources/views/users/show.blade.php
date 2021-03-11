@@ -29,6 +29,10 @@
                             <td> : {{ $users->sebagai }}</td>
                         </tr>
                         <tr>
+                            <th>Nilai</th>
+                            <td> : {{ $users->nilai }}</td>
+                        </tr>
+                        <tr>
                             <th>No Telpon</th>
                             <td> : {{ $users->telpon }}</td>
                         </tr>

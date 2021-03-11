@@ -17,12 +17,14 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Sebagai</th>
+                        <th>Nilai</th>
                         <th>No Telp</th>
+                        <th>Kode Unik</th>
                         <th>Alamat</th>
                         <th>Aksi</th>
                     </tr>
@@ -34,7 +36,9 @@
                         <td>{{$users->name}}</td>
                         <td>{{$users->email}}</td>
                         <td>{{$users->sebagai}}</td>
+                        <td>{{ $users->nilai }}</td>
                         <td>{{$users->telpon}}</td>
+                        <td>{{$users->kode_unik}}</td>
                         <td>{!! $users->alamat !!}</td>
                         <!-- <td>{{$users->kode_unik}}</td> -->
                         <td>
