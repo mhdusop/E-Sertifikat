@@ -30,4 +30,7 @@ Route::get('/murid/print', [UserController::class, 'print'])->name('murid.print'
 // user page
 Route::resource('/murid', UserController::class);
 
+Route::get('/home', function() {
+    return view('murid_page.index');
+});
 
