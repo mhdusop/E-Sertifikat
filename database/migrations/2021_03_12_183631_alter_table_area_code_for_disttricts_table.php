@@ -4,17 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNilaiToUsersTable extends Migration
+class AlterTableAreaCodeForDisttrictsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('nilai')->nullable();
+        Schema::table('districts', function (Blueprint $table) {
+            $table->string('area_code', 10)->after('name');
         });
     }
 
@@ -25,8 +20,8 @@ class AddNilaiToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('districts', function (Blueprint $table) {
+            $table->dropColumn(['area_code']);
         });
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\CetakPdfController;
 use App\Models\User;
 
@@ -20,17 +21,17 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
-// user print
-Route::get('/murid/print', [UserController::class, 'print'])->name('murid.print');
-
-// user page
-Route::resource('/murid', UserController::class);
-
-Route::get('/home', function() {
-    return view('murid_page.index');
+Route::prefix('manage')->group(function () {
+	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+	Route::resource('/users', UserController::class);
+	Route::get('/users/export', [UserController::class, 'print'])->name('murid.print');
 });
+
+// Route::get('/home', function() {
+//     return view('murid_page.index');
+// });
 

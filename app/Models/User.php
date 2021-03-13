@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,11 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable, Uuid;
+
+    protected $primaryKey = 'uuid';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -26,12 +27,19 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'kode_unik',
-        'sebagai',
-        'telpon',
-        'alamat',
         'password',
-        'nilai'
+        'email_verified_at',
+        'unique_code',
+        'role',
+        'phone',
+        'province',
+        'city',
+        'district',
+        'address',
+        'gender',
+        'pob',
+        'dob',
+        'path_photo'
     ];
 
     /**
@@ -44,6 +52,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'email_verified_at'
     ];
 
     /**
@@ -52,7 +61,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        // 'email_verified_at' => 'datetime',
+        'created_at ' => 'datetime',
+        'name' => 'string',
+        'email' => 'string',
+        'unique_code' => 'integer',
+        'role' => 'string',
+        'phone' => 'string',
+        'province_uuid' => 'string',
+        'city_uuid' => 'string',
+        'district_uuid' => 'string',
+        'address' => 'string',
+        'gender' => 'integer',
+        'pob' => 'string',
+        'dob' => 'date',
+        'path_photo' => 'string'
     ];
 
     /**
@@ -61,10 +84,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
-    ];
-
-    protected $rules = [
-        'email' => 'sometimes|required|email|unique:users',
+        'path_photo',
     ];
 }

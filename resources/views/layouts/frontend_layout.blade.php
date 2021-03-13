@@ -44,12 +44,12 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href=" {{route('dashboard')}}">
+                <a class="nav-link" href=" {{route('dashboard.index')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url('murid')}}">
+                <a class="nav-link" href="{{url('users.index')}}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Murid</span></a>
             </li>
