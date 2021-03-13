@@ -170,6 +170,34 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+    <script type="text/javascript">
+    jQuery(document).ready(function ()
+    {
+            jQuery('select[name="provinces"]').on('change',function(){
+               var countryID = jQuery(this).val();
+               if(countryID)
+               {
+                  jQuery.ajax({
+                     url : 'dropdownlist/getcities/' +countryID,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        jQuery('select[name="cities"]').empty();
+                        jQuery.each(data, function(key,value){
+                           $('select[name="cities"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="cities"]').empty();
+               }
+            });
+    });
+    </script>
 
     @yield('footer_code')
 </body>

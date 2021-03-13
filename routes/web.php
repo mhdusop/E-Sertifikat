@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Province;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\CetakPdfController;
 use App\Models\User;
@@ -34,4 +36,23 @@ Route::prefix('')->group(function () {
 // Route::get('/home', function() {
 //     return view('murid_page.index');
 // });
+// Route::get('/province' , function(){
+//     $provinces = Province::where('district_uuid',0)->get();
+//     return view('users.create',["provinces" => $provinces]);
+// });
 
+// Route::post('/subprovince', function (Request $request) {
+
+//     $parent_id = $request->district_uuid;
+    
+//     $subprovince = Province::where('uuid',$parent_id)
+//                         ->with('subprovince')
+//                         ->get();
+
+//     return response()->json([
+//         'subprovince' => $subprovince
+//     ]);
+// })->name('subprovince');
+
+Route::get('dropdownlist','DataController@getProvinces');
+Route::get('dropdownlist/getcities/{uuid}','DataController@getCities');

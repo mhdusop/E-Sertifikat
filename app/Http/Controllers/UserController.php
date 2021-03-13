@@ -148,9 +148,9 @@ class UserController extends Controller
         $dompdf = new Dompdf($options);
     }
 
-    public function kode_unik($kode_unik)
+    public function kode_unik()
     {
-        $users = User::find($kode_unik);
+        $users = User::all();
         return view('murid_page.index', compact('users'));
     }
 

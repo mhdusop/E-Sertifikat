@@ -11,7 +11,8 @@
 <body>
 
 <div class="container">
-    <form action="#">
+    <form action="{{ route('murid.index') }}" method="GET">
+    @csrf
         <div class="mx-auto mt-4 form-group col-md-7 justify-content-center">
             <input type="number" class="form-control " id="kode" placeholder="Masukan Kode">
             <button type="submit" class="btn btn-primary mt-2">Submit</button>
