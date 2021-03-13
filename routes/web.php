@@ -25,7 +25,7 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->name('dashboard');
 
-Route::prefix('manage')->group(function () {
+Route::prefix('')->group(function () {
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 	Route::resource('/users', UserController::class);
 	Route::get('/users/export', [UserController::class, 'print'])->name('murid.print');

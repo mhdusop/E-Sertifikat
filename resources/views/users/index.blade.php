@@ -5,56 +5,83 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h6>
-        <a href="{{route('murid.create')}}" class="btn btn-primary btn-sm float-right">
-        <i class="fas fa-user-plus"></i>
-            Tambah Pengguna
-        </a>
-        <a href="{{route('murid.print')}}" class="btn btn-danger btn-sm float-right mr-1">
-        <i class="fas fa-print"></i>
-            Cetak PDF
-        </a>
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h6>
+            </div>
+            <div class="col-md-6">
+                <a href="{{route('users.create')}}" class="btn btn-primary btn-sm float-right">
+                    <i class="fas fa-user-plus"></i> Tambah Pengguna
+                </a>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                        <th>Nama</th>
+                    <tr>
+                        <th>Unique Code</th>
+                        <th>Name</th>
                         <th>Email</th>
-                        <th>Sebagai</th>
-                        <th>Nilai</th>
-                        <th>No Telp</th>
-                        <th>Kode Unik</th>
-                        <th>Alamat</th>
-                        <th>Aksi</th>
+                        <th>Role</th>
+                        <th>Phone</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $users)
+                    @foreach($users as $user)
 
                     <tr>
-                        <td>{{$users->name}}</td>
-                        <td>{{$users->email}}</td>
-                        <td>{{$users->sebagai}}</td>
-                        <td>{{ $users->nilai }}</td>
-                        <td>{{$users->telpon}}</td>
-                        <td>{{$users->kode_unik}}</td>
-                        <td>{!! $users->alamat !!}</td>
-                        <!-- <td>{{$users->kode_unik}}</td> -->
+                        <td>{{$user->unique_code}}</td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->sebagai}}</td>
+                        <td>{{$user->telpon}}</td>
                         <td>
-                            <form action="{{ route('murid.destroy', $users->id) }}" method="POST">       
-                            @csrf
-                            @method('DELETE')
-                                <a href="{{ route('murid.show', $users->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a href="{{ route('murid.edit', $users->id) }}" class="btn btn-success btn-sm">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <button data-toggle="modal" onclick="return confirm('Are you sure?');"type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
+                            <a href="{{ route('users.show', $user->uuid) }}" class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a href="{{ route('users.edit', $user->uuid) }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <!-- Button trigger modal -->
+                            <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{$user->uuid}}">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal{{$user->uuid}}" tabindex="-1" aria-labelledby="deleteModal{{$user->uuid}}Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('users.destroy', $user->uuid) }}" method="POST">       
+                                            @csrf
+                                            @method('DELETE')
+                                                Are you sure delete {{$user->name}}?
+                                                <div class="row mt-4">
+                                                    <div class="col-md-6">
+                                                        <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
+                                                            <i class="fas fa-times"></i> Cancel
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <button type="submit" class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-check"></i> Yes, sure
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
                         </td>
                     </tr>
 
@@ -67,4 +94,12 @@
 
 </div>
 <!-- /.container-fluid -->
+@stop
+@section('footer_code')
+    <!-- Page level plugins -->
+    <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 @stop
