@@ -40,23 +40,23 @@
                 <div class="row pt-3">
                     <div class="col">
                         <label for="password"> Province</label>
-                        <select class="form-control" id="subprovince" required="required" name="subprovince"> 
+                        <select class="form-control" id="province" required="required" name="province"> 
                             <option selected>Select Province</option>
                             @foreach ($provinces as $key => $value)
-                                <option value="{{ $key }}" >{{ $value }}>Province</option>
+                                <option value="{{ $key }}" >{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>    
                     <div class="col">
                         <label for="password"> City</label>
-                        <select class="browser-default custom-select form-control" name="subcategory" id="subcategory">
+                        <select class="browser-default custom-select form-control" name="city" id="city">
 
                         </select>
                     </div>
                     <div class="col">
                         <label for="password"> District</label>
-                        <select class="form-control" id="sebagai" required="required" name="sebagai"> 
-                            <option value="peserta">District</option>
+                        <select class="form-control" id="district" required="required" name="district"> 
+                            
                         </select>
                     </div>
                 </div>
@@ -99,8 +99,69 @@
         </div>
     </div>
 </div>
+@stop
 
 @section('footer_code')
 <!-- /.container-fluid -->
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).ready(function () {
+        
+        $('#province').on('change',function(e) {
+            
+            var province_uuid = e.target.value;
+            $('#city').empty();
+            $('#district').empty();
+
+            $.ajax({
+                
+                url:"/cities?province_uuid="+province_uuid,
+                type:"GET",
+                
+                success:function (data) {
+
+                $('#city').empty();
+                $('#city').append('<option value="" selected>-- Pilih Kota / Kabupaten --</option>');
+                $.each(data.cites,function(index,city){
+                    
+                    $('#city').append('<option value="'+city.uuid+'">'+city.name+'</option>');
+                })
+
+                }
+            })
+        });
+        $('#city').on('change',function(e) {
+
+            $('#district').empty();
+            
+            var city_uuid = e.target.value;
+
+            $.ajax({
+                
+                url:"/districts?city_uuid="+city_uuid,
+                type:"GET",
+                
+                success:function (data) {
+
+                $('#district').empty();
+                $('#district').append('<option value="" selected>-- Pilih Kelurahan --</option>');
+                $.each(data.districts,function(index,district){
+                    
+                    $('#district').append('<option value="'+district.uuid+'">'+district.name+'</option>');
+                })
+
+                }
+            })
+        });
+
+    });
+</script>
+
     
 @stop

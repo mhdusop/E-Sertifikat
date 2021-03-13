@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\Province;
 use LengthException;
 use Ramsey\Uuid\Type\Decimal;
 
@@ -34,7 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $provinces = Province::pluck("name","uuid");
+        return view('users.create', compact('provinces'));
     }
 
     /**
