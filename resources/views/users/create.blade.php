@@ -22,19 +22,19 @@
                 @csrf
                 <div class="row">
                     <div class="col">
-                        <label for="nama">Nama</label>
+                        <label for="nama">Name</label>
                         <input type="text" class="form-control" id="nama" name="nama"
-                            placeholder="Masukan Nama" required="required">
+                            placeholder="Insert Your Name" required="required">
                     </div>
                     <div class="col">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email"
-                            id="email" placeholder="Masukan Email"required="required" >
+                            id="email" placeholder="Insert Your Email"required="required" >
                     </div>
                     <div class="col">
                     <label for="password"> Password</label>
                         <input type="password" class="form-control" name="password"
-                            id="password" placeholder="Masukan Password"required="required">
+                            id="password" placeholder="Insert Your Password"required="required">
                     </div>
                 </div>
                 <div class="row pt-3">
@@ -64,7 +64,7 @@
                     <div class="col">
                         <label for="sebagai">Role</label>
                         <select class="form-control" id="sebagai" required="required" name="sebagai"> 
-                            <option selected>Select Province</option>
+                            <option selected></option>
                             <option value="admin">Admin</option>
                             <option value="fasilitator">Fasilitator</option>
                             <option value="student">Student</option>
@@ -73,14 +73,27 @@
                     <div class="col">
                         <label for="telpon">Phone</label>
                         <input type="number" class="form-control" name="telpon"
-                            id="telpon" placeholder="Masukan Nomor Hp" required="required" >
+                            id="telpon" placeholder="Insert Your Number Phone" required="required" >
+                    </div>
+                    
+                </div>
+                <div class="row pb-3 pt-3"> 
+                    <div class="col">
+                        <label for="telpon">PLace Of Birth</label>
+                        <input type="text" class="form-control" name="telpon"
+                            id="telpon" placeholder="Insert Your PLace Of Birth" required="required" >
+                    </div>
+                    <div class="col">
+                        <label for="telpon">Birth Of Date</label>
+                        <input type="date" class="form-control" name="telpon"
+                            id="telpon" placeholder="Insert Your Birth Of Date" required="required" >
                     </div>
                     
                 </div>
                 <div class="row pb-3 pt-3">
                     <div class="col">
-                    <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" class="form-control" cols="10" rows="10" placeholder="Masukan Alamat"></textarea>
+                    <label for="alamat">Address</label>
+                        <textarea name="alamat" id="alamat" class="form-control" cols="10" rows="10" placeholder="Insert Your Address"></textarea>
                     </div>
                 </div>
                 <div class="row">

@@ -5,6 +5,7 @@ use App\Models\Province;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\SubjectController;
 use App\Http\Controllers\Backend\DataController;
 use App\Http\Controllers\CetakPdfController;
 use App\Models\User;
@@ -24,9 +25,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
 Route::get('/cities', [DataController::class, 'getCitty']);
 Route::get('/districts', [DataController::class, 'getDistrict']);
 Route::prefix('')->group(function () {
@@ -36,26 +34,6 @@ Route::prefix('')->group(function () {
 	Route::get('/users/export', [UserController::class, 'print'])->name('murid.print');
 });
 
-// Route::get('/home', function() {
-//     return view('murid_page.index');
-// });
-// Route::get('/province' , function(){
-//     $provinces = Province::where('district_uuid',0)->get();
-//     return view('users.create',["provinces" => $provinces]);
-// });
 
-// Route::post('/subprovince', function (Request $request) {
-
-//     $parent_id = $request->district_uuid;
-    
-//     $subprovince = Province::where('uuid',$parent_id)
-//                         ->with('subprovince')
-//                         ->get();
-
-//     return response()->json([
-//         'subprovince' => $subprovince
-//     ]);
-// })->name('subprovince');
-
-Route::get('dropdownlist','DataController@getProvinces');
-Route::get('dropdownlist/getcities/{uuid}','DataController@getCities');
+// Nilai_Page\
+Route::resource('/subjects', SubjectController::class);

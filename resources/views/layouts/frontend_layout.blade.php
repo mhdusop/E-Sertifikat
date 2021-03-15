@@ -51,7 +51,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Murid</span></a>
+                    <span>Users</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('subjects.index')}}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Subject</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->
