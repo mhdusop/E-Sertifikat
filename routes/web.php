@@ -32,8 +32,7 @@ Route::prefix('')->group(function () {
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 	Route::resource('/users', UserController::class);
 	Route::get('/users/export', [UserController::class, 'print'])->name('murid.print');
+	// Subject
+	Route::resource('/subjects', SubjectController::class);
 });
 
-
-// Nilai_Page\
-Route::resource('/subjects', SubjectController::class);

@@ -7,11 +7,11 @@
     <div class="card-header py-3">
         <div class="row">
             <div class="col-md-6">
-                <h6 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h6>
+                <h3 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h3>
             </div>
             <div class="col-md-6">
                 <a href="{{route('users.create')}}" class="btn btn-primary btn-sm float-right">
-                    <i class="fas fa-user-plus"></i> Tambah Pengguna
+                    <i class="fas fa-user-plus"></i> Add User
                 </a>
             </div>
         </div>
@@ -33,11 +33,11 @@
                     @foreach($users as $user)
 
                     <tr>
-                        <td>{{$user->unique_code}}</td>
+                        <td></td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->sebagai}}</td>
-                        <td>{{$user->telpon}}</td>
+                        <td>{{$user->role}}</td>
+                        <td>{{$user->phone}}</td>
                         <td>
                             <a href="{{ route('users.show', $user->uuid) }}" class="btn btn-info btn-sm">
                                 <i class="fa fa-eye"></i>

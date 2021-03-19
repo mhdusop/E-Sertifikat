@@ -19,6 +19,7 @@ class CreateSubjectsTable extends Migration
             $table->foreign('user_uuid')->references('uuid')->on('users')->onDelete('cascade');
             $table->string('name', 100);
             $table->timestamps();
+            $table->foreign('user_uuid')->references('subject_uuid')->on('subject_values');
         });
     }
 

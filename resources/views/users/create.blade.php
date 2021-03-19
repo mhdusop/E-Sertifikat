@@ -22,8 +22,8 @@
                 @csrf
                 <div class="row">
                     <div class="col">
-                        <label for="nama">Name</label>
-                        <input type="text" class="form-control" id="nama" name="nama"
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name"
                             placeholder="Insert Your Name" required="required">
                     </div>
                     <div class="col">
@@ -62,8 +62,8 @@
                 </div>
                 <div class="row pb-3 pt-3"> 
                     <div class="col">
-                        <label for="sebagai">Role</label>
-                        <select class="form-control" id="sebagai" required="required" name="sebagai"> 
+                        <label for="role">Role</label>
+                        <select class="form-control" id="role" required="required" name="role"> 
                             <option selected></option>
                             <option value="admin">Admin</option>
                             <option value="fasilitator">Fasilitator</option>
@@ -71,29 +71,29 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="telpon">Phone</label>
-                        <input type="number" class="form-control" name="telpon"
-                            id="telpon" placeholder="Insert Your Number Phone" required="required" >
+                        <label for="phone">Phone</label>
+                        <input type="number" class="form-control" name="phone"
+                            id="phone" placeholder="Insert Your Number Phone" required="required" >
                     </div>
                     
                 </div>
                 <div class="row pb-3 pt-3"> 
                     <div class="col">
-                        <label for="telpon">PLace Of Birth</label>
-                        <input type="text" class="form-control" name="telpon"
-                            id="telpon" placeholder="Insert Your PLace Of Birth" required="required" >
+                        <label for="pob">PLace Of Birth</label>
+                        <input type="text" class="form-control" name="pob"
+                            id="pob" placeholder="Insert Your PLace Of Birth" required="required" >
                     </div>
                     <div class="col">
-                        <label for="telpon">Birth Of Date</label>
-                        <input type="date" class="form-control" name="telpon"
-                            id="telpon" placeholder="Insert Your Birth Of Date" required="required" >
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob"
+                            id="dob" placeholder="Insert Your Birth Of Date" required="required" >
                     </div>
                     
                 </div>
                 <div class="row pb-3 pt-3">
                     <div class="col">
-                    <label for="alamat">Address</label>
-                        <textarea name="alamat" id="alamat" class="form-control" cols="10" rows="10" placeholder="Insert Your Address"></textarea>
+                    <label for="address">Address</label>
+                        <textarea name="address" id="address" class="form-control" cols="10" rows="10" placeholder="Insert Your Address"></textarea>
                     </div>
                 </div>
                 <div class="row">

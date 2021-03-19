@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Models\User;
+use App\Models\SubjectValue;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -26,7 +29,9 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subjects.create');
+        $subjects = Subject::all();
+        $users = User::all();
+        return view('subjects.create', compact('subjects', 'users'));
     }
 
     /**
@@ -37,7 +42,32 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $subjects = Subject::create([
+            'user_uuid' => $request->student,
+            'name' => $request->subject
+        ]);
+        
+        foreach ($request->value as $key => $value) {
+            $alphabet = null;
+            if ($value >= 90 && $value <= 100) {
+                $alphabet = "A";
+            } else if ($value >= 80 && $value <= 89) {
+                $alphabet = "B";
+            } else if ($value >= 70 && $value <= 79) {
+                $alphabet = "C";
+            } else if ($value >= 60 && $value <= 69) {
+                $alphabet = "D";
+            } else {
+                $alphabet = "E";
+            }
+            SubjectValue::create([
+                'subject_uuid' => $subjects->uuid,
+                'name' => $request->name[$key],
+                'value' => $value,
+                'alphabet' => $alphabet
+            ]);
+        }
+        return redirect()->route('subjects.index');
     }
 
     /**
@@ -46,9 +76,10 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        $subject = Subject::with(['user', 'subjectValue'])->find($uuid);
+        return view('subjects.show', compact('subject'));
     }
 
     /**
@@ -57,9 +88,12 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $subjects = Subject::with(['user', 'subjectValue'])->find($uuid);
+        $users = User::all();
+        $subjectValue = SubjectValue::all();
+        return view('subjects.edit', compact(['subjects', 'users', 'subjectValue']));
     }
 
     /**
@@ -69,9 +103,22 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $subject = Subject::find($uuid);
+        $subjectValue = SubjectValue::find($uuid);
+        $subject -> update ([
+            'user_uuid' => $request->student,
+            'value' => $request->value,
+            'name' => $request->subject,
+            
+        ]);
+        
+        $subjectValue -> update([
+            'uuid' => $request->name,
+            'value' => $request->value,
+        ]);
+        return redirect()->route('subjects.index');
     }
 
     /**
@@ -80,8 +127,9 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        DB::table('subjects')->where('uuid', $uuid)->delete();
+        return redirect()->route('subjects.index');
     }
 }

@@ -7,7 +7,7 @@
     <div class="card-header py-3">
         <div class="row">
             <div class="col-md-6">
-                <h6 class="m-0 font-weight-bold text-primary">Subject List</h6>
+                <h3 class="m-0 font-weight-bold text-primary">Subject List</h3>
             </div>
             <div class="col-md-6">
                 <a href="{{route('subjects.create')}}" class="btn btn-primary btn-sm float-right">
@@ -27,25 +27,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($subjects as $user)
+                    @foreach($subjects as $subject)
 
                     <tr>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
+                        <td>{{$subject->user->name}}</td>
+                        <td>{{$subject->name}}</td>
                         <td>
-                            <a href="{{ route('users.show', $user->uuid) }}" class="btn btn-info btn-sm">
+                            <a href="{{ route('subjects.show', $subject->uuid) }}" class="btn btn-info btn-sm">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <a href="{{ route('users.edit', $user->uuid) }}" class="btn btn-success btn-sm">
+                            <a href="{{ route('subjects.edit', $subject->uuid) }}" class="btn btn-success btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <!-- Button trigger modal -->
-                            <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{$user->uuid}}">
+                            <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{$subject->uuid}}">
                                 <i class="fas fa-trash"></i>
                             </a>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="deleteModal{{$user->uuid}}" tabindex="-1" aria-labelledby="deleteModal{{$user->uuid}}Label" aria-hidden="true">
+                            <div class="modal fade" id="deleteModal{{$subject->uuid}}" tabindex="-1" aria-labelledby="deleteModal{{$subject->uuid}}Label" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -55,10 +55,10 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('users.destroy', $user->uuid) }}" method="POST">       
+                                            <form action="{{ route('subjects.destroy', $subject->uuid) }}" method="POST">       
                                             @csrf
                                             @method('DELETE')
-                                                Are you sure delete {{$user->name}}?
+                                                Are you sure delete {{$subject->name}}?
                                                 <div class="row mt-4">
                                                     <div class="col-md-6">
                                                         <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
@@ -79,18 +79,6 @@
                         </td>
                     </tr>
                     @endforeach
-                </tbody>
-                <thead>
-                    <tr>  
-                        <th>Non Technical Aspects</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
         </div>

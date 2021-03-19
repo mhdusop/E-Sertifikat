@@ -47,22 +47,20 @@ class UserController extends Controller
      */
     public function store(Create $request)
     {
-        $bilangan=12345678;
         $getLastUniqueCode = User::orderBy('created_at', 'desc')->first();
         User::create([
-            'name' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request -> password),
-            'sebagai'  => $request->sebagai,
-            'alamat' => $request->alamat,
-            'telpon' => $request->telpon,
+            'role'  => $request->role,
+            'address' => $request->address,
+            'phone' => $request->phone,
             'nilai' => $request->nilai,
-            // $request = IdGenerator::generate(['table' => 'users', 'length' => 10, 'prefix' => date('ym')])
-            'kode_unik' => (int) $getLastUniqueCode->kode_unik + $bilangan
-            // $request = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'Comp-'])
+            'pob' => $request->pob,
+            'dob' => $request->dob
         ]);
 
-        return redirect()->route('murid.index');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -71,9 +69,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        $users = User::find($id);
+        $users = User::with(['subjects.subjectValue'])->find($uuid);
         return view('users.show', compact('users'));
     }
 
@@ -83,9 +81,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        $users = User::find($id);
+        $users = User::find($uuid);
         return view('users.edit', compact('users'));
     }
 
@@ -96,19 +94,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Update $request, $id)
+    public function update(Update $request, $uuid)
     {
-        $users = User::find($id);
+        $users = User::find($uuid);
         $users -> update ([
-            'name' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => is_null($request->password)? $users->password : Hash::make($request->password),
-            'sebagai'  => $request->sebagai,
-            'alamat' => $request->alamat,
-            'telpon' => $request->telpon,
+            'role'  => $request->role,
+            'phone' => $request->phone,
+            'pob' => $request->pob,
+            'dob' => $request->dob,
+            'address' => $request->address,
+            'phone' => $request->phone,
             'nilai' => $request->nilai
         ]);
-        return redirect()->route('murid.index');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -117,14 +118,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         // $users = User::find($id);
         // $users->delete();
 
         // return redirect()->route('murid.index')->with('success', 'User has been deleted');   
-        DB::table('users')->where('id', $id)->delete();
-        return redirect()->route('murid.index');
+        DB::table('users')->where('uuid', $uuid)->delete();
+        return redirect()->route('users.index');
     }
 
     // Print PDF

@@ -55,6 +55,10 @@ class User extends Authenticatable
         'email_verified_at'
     ];
 
+    public function subjects() {
+        return $this->hasMany('App\Models\Subject', 'user_uuid');
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
