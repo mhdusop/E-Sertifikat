@@ -12,8 +12,11 @@
             <div class="col">
                 <h3 class="m-0 font-weight-bold text-primary">User Detail</h3>
             </div>
-            <div class="col-md-6">
-                <a href="{{route('users.index')}}" class="btn btn-secondary btn-sm float-right">
+            <div class="col-md-6 text-right">
+                <a href="{{route('users.print', ['uuid' => $users->uuid])}}" class="btn btn-primary btn-sm text-right">
+                    <i class="fa fa-download"></i> Print
+                </a>  
+                <a href="{{route('users.index')}}" class="btn btn-secondary btn-sm text-right">
                     <i class="fa fa-chevron-left"></i> Back
                 </a>  
             </div>

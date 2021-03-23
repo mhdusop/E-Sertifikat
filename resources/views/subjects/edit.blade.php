@@ -56,19 +56,24 @@
                             <tr>
                                 <th>Studies Name</th>
                                 <th>Value</th>
-                                <th>Alphabet</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($subjects->subjectValue as $value)
                             <tr>
                                 <td>
-                                    <input type="text" class="form-control" id="name" name="name"
+                                    <input type="text" class="form-control" id="name" name="name[]"
                                     placeholder="Insert Your Name" required="required" value="{{$value->name}}">
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control" id="value" name="value"
+                                    <input type="number" class="form-control" id="value" name="value[]"
                                     placeholder="Insert Your Name" required="required" value="{{$value->value}}">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" name="add" id="addMore" style="margin-top: 38px;">
+										<i class="fa fa-plus"></i>
+									</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -100,4 +105,27 @@
 </div>
 <!-- /.container-fluid -->
     
+@stop
+
+@section('footer_code')
+<!-- /.container-fluid -->
+<script type="text/javascript">
+    $(function() {
+        var x = 1;
+        // var max_fields = 20;
+        $("#addMore").click(function(e) {
+            e.preventDefault();
+            $("#fieldList").append("<div class='row' id='field-child'><div class='col-md-5'><label class='mt-2' for='name'>Studies Name</label><input type='text' class='form-control' id='name' name='name[]' placeholder='Name' required='required'></div><div class='col-md-5'><label class='mt-2' for='value'>Value</label><input type='number' class='form-control' id='value' name='value[]' placeholder='Value' required='required'></div><button type='button' style='margin-top: 38px !important; margin-left: 15px;' class='mt-5 btn btn-danger remove_field'><i class='fa fa-times'></button></div>");
+        });
+
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove field
+            e.preventDefault();
+			console.log($(this).parent())
+            $(this).parent('div').remove(); x--;
+        })
+    });
+
+
+
+    </script>
 @stop

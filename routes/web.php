@@ -31,7 +31,7 @@ Route::prefix('')->group(function () {
 	
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 	Route::resource('/users', UserController::class);
-	Route::get('/users/export', [UserController::class, 'print'])->name('murid.print');
+	Route::get('/users/export/{uuid}', [UserController::class, 'print'])->name('users.print');
 	// Subject
 	Route::resource('/subjects', SubjectController::class);
 });

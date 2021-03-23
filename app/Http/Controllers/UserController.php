@@ -13,6 +13,7 @@ use Dompdf\Options;
 use App\Models\Province;
 use LengthException;
 use Ramsey\Uuid\Type\Decimal;
+use PDF;
 
 class UserController extends Controller
 {
@@ -128,28 +129,38 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    // Print PDF
-    public function print()
+    public function print($uuid)
     {
-        $users = User::all();
-        $html = view('users.print', compact('users'));
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser
-        $dompdf->stream();
-
-        $options = new Options();
-        $options->set('defaultFont', 'Courier');
-        $dompdf = new Dompdf($options);
+        $user = user::find($uuid);
+ 
+        $pdf = PDF::loadview('users.print',compact('user'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
     }
+
+    // Print PDF
+    // public function print($uuid)
+    // {
+    //     $user = User::find($uuid);
+    //     $html = view('users.print', compact('user'));
+    //     // instantiate and use the dompdf class
+    //     $dompdf = new Dompdf();
+    //     $dompdf->loadHtml($html);
+
+    //     // (Optional) Setup the paper size and orientation
+    //     $dompdf->setPaper('A4', 'landscape');
+    //     $dompdf->stream('filename.pdf');
+
+    //     // Render the HTML as PDF
+    //     // $dompdf->render();
+
+    //     // Output the generated PDF to Browser
+    //     // $dompdf->stream();
+
+    //     // $options = new Options();
+    //     // $options->set('defaultFont', 'Courier');
+    //     // $dompdf = new Dompdf($options);
+    // }
 
     public function kode_unik()
     {

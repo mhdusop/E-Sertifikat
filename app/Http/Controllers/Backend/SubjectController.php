@@ -105,6 +105,7 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $uuid)
     {
+        // dd($request->all());
         $subject = Subject::find($uuid);
         $subjectValue = SubjectValue::find($uuid);
         $subject -> update ([
@@ -113,11 +114,27 @@ class SubjectController extends Controller
             'name' => $request->subject,
             
         ]);
-        
-        $subjectValue -> update([
-            'uuid' => $request->name,
-            'value' => $request->value,
-        ]);
+        SubjectValue::where('subject_uuid', $uuid)->delete();
+        foreach ($request->value as $key => $value) {
+            $alphabet = null;
+            if ($value >= 90 && $value <= 100) {
+                $alphabet = "A";
+            } else if ($value >= 80 && $value <= 89) {
+                $alphabet = "B";
+            } else if ($value >= 70 && $value <= 79) {
+                $alphabet = "C";
+            } else if ($value >= 60 && $value <= 69) {
+                $alphabet = "D";
+            } else {
+                $alphabet = "E";
+            }
+            SubjectValue::create([
+                'subject_uuid' => $subject->uuid,
+                'name' => $request->name[$key],
+                'value' => $value,
+                'alphabet' => $alphabet
+            ]);
+        }
         return redirect()->route('subjects.index');
     }
 
